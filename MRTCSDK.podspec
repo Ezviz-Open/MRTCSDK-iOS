@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "MRTCSDK"
-  spec.version      = "0.0.3"
+  spec.version      = "0.0.4"
   spec.summary      = "A short description of MRTCSDK."
   spec.description  = <<-DESC
   TODO: Add long description of the pod here.
@@ -26,12 +26,12 @@ Pod::Spec.new do |spec|
   spec.license      = { :type => "MIT", :file => "LICENSE" }
 
   spec.author             = { "jinlongyu23" => "open-team@ezvizlife.com" }
-
-  spec.platform     = :ios, "12.0"
   
   spec.ios.deployment_target = "12.0"
   
   spec.static_framework = true
+  
+  spec.weak_frameworks = 'SystemConfiguration', 'Accelerate', 'AVFoundation', 'QuartzCore', 'CoreGraphics', 'CoreMedia', 'CoreAudio', 'CoreVideo', 'CoreML', 'OpenGLES', 'Security', 'CFNetwork', 'UIKit', 'Foundation', 'ReplayKit', 'PushKit', 'CoreTelephony'
 
   spec.source       = { :git => "https://github.com/Ezviz-Open/MRTCSDK-iOS.git", :tag => "#{spec.version}" }
 
@@ -44,8 +44,14 @@ Pod::Spec.new do |spec|
   # 依赖开源库
   spec.dependency 'ERTCSDK'
   spec.dependency 'VCSSDK'
+  spec.dependency 'MMKV'
+  spec.dependency 'Protobuf'
+  spec.dependency 'SSZipArchive', '>= 2.4.3'
+  spec.dependency 'AFNetworking', '>= 4.0.0'
   
   spec.requires_arc = true
+  
   spec.user_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) VCS_USE_PROTOBUF_BEAUTY_IMPORTS=1' }
+  
   spec.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) VCS_USE_PROTOBUF_BEAUTY_IMPORTS=1' }
 end
