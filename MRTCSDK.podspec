@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "MRTCSDK"
-  spec.version      = "0.0.1"
+  spec.version      = "0.0.2"
   spec.summary      = "A short description of MRTCSDK."
   spec.description  = <<-DESC
   TODO: Add long description of the pod here.
@@ -42,8 +42,8 @@ Pod::Spec.new do |spec|
   spec.vendored_frameworks = 'MRTCSDK/MRTCSDK.framework'
   
   # 依赖开源库
-  s.dependency 'ERTCSDK'
-  s.dependency 'VCSSDK'
+  spec.dependency 'ERTCSDK'
+  spec.dependency 'VCSSDK'
   
   spec.requires_arc = true
   spec.user_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) VCS_USE_PROTOBUF_BEAUTY_IMPORTS=1' }
