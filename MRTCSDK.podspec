@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "MRTCSDK"
-  spec.version      = "0.0.6"
+  spec.version      = "1.0.0"
   spec.summary      = "A short description of MRTCSDK."
   spec.description  = <<-DESC
   TODO: Add long description of the pod here.
@@ -46,6 +46,7 @@ Pod::Spec.new do |spec|
   spec.dependency 'VCSSDK'
   spec.dependency 'MMKV'
   spec.dependency 'Protobuf'
+  spec.dependency 'DingRTC_iOS'
   spec.dependency 'SSZipArchive', '>= 2.4.3'
   spec.dependency 'AFNetworking', '>= 4.0.0'
   

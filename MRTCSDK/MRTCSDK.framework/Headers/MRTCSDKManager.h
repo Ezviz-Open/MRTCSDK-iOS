@@ -15,11 +15,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#ifdef include_ERTCMeidaModule
-@class ERTCEngine;
-#endif
+typedef void (^MRTCGetThirdRTCInfoBlock)( NSError * _Nullable error);
 
+@class ERTCEngine;
+@class DingRtcEngine;
 @interface MRTCSDKManager : NSObject
+#pragma mark 是否是三方RTC
+@property (nonatomic, assign) BOOL isThirdRTC;
 #pragma mark 流媒体类型
 @property (nonatomic, assign)MRTCMediaType mediaType;
 
@@ -33,12 +35,24 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) id <MRTCSDKManagerCameraProtocol> cameraDelegate;
 
 #pragma mark 自研RTC实例
-#ifdef include_ERTCMeidaModule
 @property (nonatomic, strong, nullable) ERTCEngine *engine;
-#endif
+
+#pragma mark DingDingRTC实例
+@property (nonatomic, strong, nullable) DingRtcEngine *dingdingEngine;
 
 #pragma mark 本地用户小窗口视图
 @property (nonatomic, strong)MRTCLocalPreView *localSmallView;
+
+#pragma mark 屏幕共享groupId
+@property (nonatomic, copy) NSString *appGroup;
+
+@property (nonatomic, assign) int64_t startGetThirdInfoTimer;
+
+@property (nonatomic, assign) int64_t startJoinRoomTimer;
+
+@property (nonatomic, assign) int64_t startSubscribeTimer;
+
+@property (nonatomic, assign) int64_t remoteUserJoinRoomTimer;
 
 #pragma mark 单例模式初始化流媒体服务类
 +(instancetype)sharedManager;
@@ -52,6 +66,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param delegate 代理委托
 - (BOOL)initMediaSessionWithMeetingParam:(MRTCSDKJoinRoomParam *)meetingParam  delegate:(id <MRTCSDKManagerProtocol>)delegate;
 
+#pragma mark 获取三方RTC房间信息
+/// @param userId 用户id
+/// @param roomId 房间号
+/// @param token 资源token 服务端生成
+/// @param appId 服务端返回
+/// @param platAddress 服务端返回
+/// @param infoBlock 回调结果
+- (void)getThirdRTCRoomInfoWithUserId:(NSString *)userId roomId:(NSString *)roomId token:(NSString *)token appId:(NSString *)appId platAddress:(NSString *)platAddress infoBlock:(MRTCGetThirdRTCInfoBlock)infoBlock;
 
 #pragma mark 重新加入会议
 /// 重新加入会议(网络异常后重新入会调用)
@@ -68,29 +90,19 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param finishBlock 释放完成回调
 - (void)destroy:(BOOL)initiative finishBlock:(VCSMeetingManagerDestroyBlock)finishBlock;
 
-#pragma mark - 保存音频日志
-/// @param save 是否保存
-- (void)saveAudioFile:(BOOL)save;
-
-#pragma mark - 保存视频日志
-/// @param save 是否保存
-- (void)saveRemoteVideo:(BOOL)save;
-
-#pragma mark -是否打开SDK日志
-/// @param open 是否打开
-/// @param level 日志等级
-/// @param logCallback 日志回调
-- (void)openSDKLog:(BOOL)open withLogLevel:(MRTCLogLevel)level withLogCallback:(void(^)(NSString *logStr))logCallback;
-
 #pragma mark 是否支持自研ERTC
 - (BOOL)isSupprotERTC;
 
 #pragma mark 获取自研ERTC版本号
 - (int)getERTCVersion;
 
+#pragma mark 获取MRTC版本号
+- (NSString *)getMRTCSDKVersion;
+
 #pragma mark - -------- 音频采集相关接口 ---------
 #pragma mark 设置是否打开传统降噪
 - (void)setEnableAudioCaptureANR:(BOOL)open;
+
 
 #pragma mark - -------- 视频会议屏幕录制相关接口 ---------
 #pragma mark 开启屏幕录制
@@ -121,6 +133,10 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark 关闭/开启视频(是否发送视频)
 /// 关闭/开启视频(是否发送视频)
 - (void)enableSendVideo:(DeviceState)state;
+
+#pragma mark 暂停/恢复本地视频流的发送
+/// @param mute YES-表示暂停视频流的发送。 NO-表示恢复视频流的发送
+- (void)muteLocalCamera:(BOOL)mute;
 
 #pragma mark 设置自己是否接收对方音频 自研ERTC调用
 /// 设置自己是否接收对方音频
@@ -201,7 +217,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark 手动修正预览界面
 /// 手动修正预览界面
 /// @param size 大小
-- (void)revisePreviewSize:(CGSize)size;
+//- (void)revisePreviewSize:(CGSize)size;
 
 #pragma mark 获取当前摄像头
 /// 获取当前摄像头 0-代表前置 1-代表后置
@@ -242,6 +258,13 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark 发送退出房间消息
 - (void)sendExitRoom;
 
+#pragma mark 设置房间成员扩展信息
+/// 设置房间成员扩展信息
+/// - Parameters:
+///   - targetId: 目标用户标识
+///   - extendInfo: 扩展信息
+///   - selves: 是否为当前账户(YES-自己 NO-其它成员)
+- (void)sendRoomMemberExtendWithTargetId:(nullable NSString *)targetId extendInfo:(NSString *)extendInfo selves:(BOOL)selves;
 /**
 #pragma mark 发送举手操作消息
 /// 发送举手操作消息

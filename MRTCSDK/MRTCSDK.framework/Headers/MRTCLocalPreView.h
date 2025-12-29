@@ -9,6 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class DingRtcVideoCanvas;
 @interface MRTCLocalPreView : UIView
 
 ///窗口标识 0:小窗口 1:大窗口
@@ -34,6 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param size 大小
 - (void)revisePreviewSize:(CGSize)size;
 
+///获取钉钉播放视图
+- (DingRtcVideoCanvas *)getCanvasWithView;
 @end
 
 NS_ASSUME_NONNULL_END

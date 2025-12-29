@@ -27,6 +27,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 //appID 外部传入
 @property(nonatomic, strong) NSString *appID;
+
+//是否是研讨会嘉宾
+@property (nonatomic, assign) BOOL isSeminarGuest;
+
+//是否是研讨会观众
+@property (nonatomic, assign) BOOL isSeminarAudience;
+
 @end
 
 NS_ASSUME_NONNULL_END

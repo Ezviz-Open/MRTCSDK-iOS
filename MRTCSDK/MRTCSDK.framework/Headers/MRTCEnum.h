@@ -7,9 +7,11 @@
 
 #import <Foundation/Foundation.h>
 
-#define include_ERTCMeidaModule 1
 
 NS_ASSUME_NONNULL_BEGIN
+
+#define MRTC_SDK_VERSION @"V2.1.0"
+#define MRTC_ClientType_iOS (203)
 
 #pragma mark - SDK使用场景
 typedef enum {
@@ -17,12 +19,12 @@ typedef enum {
     MRTCMediaScene_Meeting_Minutes = 1, //会议纪要
 } MRTCMediaScene;
 
-
 #pragma mark - 音视频内核类型
 typedef enum {
     MRTCMediaType_None = 0,
     MRTCMediaType_ERTC = 1, //自研流媒体
-    MRTCMediaType_VCS = 2 //风远流媒体
+    MRTCMediaType_VCS = 2,//风远流媒体
+    MRTCMediaType_DingRTC = 3 //钉钉流媒体
 } MRTCMediaType;
 
 #pragma mark -码流类型
@@ -64,7 +66,6 @@ typedef NS_ENUM(NSUInteger, MRTCLogLevel) {
     MRTCLogLevelAll,
 };
 
-
 #pragma mark -美颜日志等级
 typedef NS_ENUM(NSInteger, MRTCBeautyLogLevel) {
     
@@ -97,6 +98,7 @@ typedef enum : NSUInteger {
     MRTCReplayKitStateUnconnected,
     MRTCReplayKitStateConnecting,
     MRTCReplayKitStateConnected,
+    MRTCReplayKitStateDisConnected,
     MRTCReplayKitStateStopped,
 } MRTCReplayKitState;
 

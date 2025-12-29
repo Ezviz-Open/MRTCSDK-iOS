@@ -108,7 +108,29 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark -适配层代码新增
 /// - Parameter userId:用户id 传空则表示预览本地摄像头
-- (void)setMRTCPlayerView:(nullable NSString *)userId;
+- (void)setRemotePlayerView:(nullable NSString *)streamId;
+
+#pragma mark -设置本地画面
+- (void)setLocalView;
+
+#pragma mark -清空本地画面
+- (void)resetLocalView;
+
+#pragma mark-清空远端画面
+/// @param streamId 流媒体标识
+- (void)resetRemoteView:(NSString *)streamId;
+
+#pragma mark-Dingding屏幕共享缩放
+#pragma mark-更新屏幕的相对缩放比例。
+- (void)updateScreenScaling:(CGFloat)scale focus:(CGPoint)focus;
+
+#pragma mark- 更新屏幕的相对移动距离。
+- (void)updateScreenMoving:(CGPoint)distance;
+
+#pragma mark - 缩放手势处理
+- (void)handlePinchGestureRecognizer:(UIPinchGestureRecognizer *)sender;
+#pragma mark - 拖动手势处理
+- (void)handlePanGestureRecognizer:(UIPanGestureRecognizer *)sender;
 
 @end
 

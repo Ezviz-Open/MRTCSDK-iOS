@@ -157,7 +157,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param yData 流媒体像素数据
 /// @param uData 流媒体像素数据
 /// @param vData 流媒体像素数据
-- (void)roomParticipantCameraDataWithLinkId:(int)linkId stamp:(int)stamp track:(int)track type:(int)type lable:(int)lable width:(int)width height:(int)height yData:(nullable void *)yData uData:(nullable void *)uData vData:(nullable void *)vData;
+/// @param pixelbuffer 流媒体像素数据
+- (void)roomParticipantCameraDataWithLinkId:(int)linkId stamp:(int)stamp track:(int)track type:(int)type lable:(int)lable width:(int)width height:(int)height yData:(nullable void *)yData uData:(nullable void *)uData vData:(nullable void *)vData pixelbuffer:(nullable CVPixelBufferRef)pixelbuffer;
 
 //会议室其他人视频数据回调
 /// @param linkId 视频链路ID
@@ -177,7 +178,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///    power = 6766; 功率
 ///    db = "-99"; 分贝值
 /// }
-- (void)roomAudioSpeakingStatusWithAudioArray:(NSMutableArray *)audioArray;
+- (void)roomAudioSpeakingStatusWithAudioArray:(nullable NSMutableArray *)audioArray;
 
 #pragma mark 本地音频编码数据
 /// 音频编码后的数据
@@ -214,6 +215,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///本地用户成功加入房间
 ///@param result 结果 0:成功
 - (void)onListenLocalUserEnterRoom:(NSInteger)result;
+
 #pragma mark 远端用户加入房间通知
 /// 成员进入会议室通知
 /// @param notify 通知信息
@@ -303,6 +305,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param notify 通知信息
 /// @param error 错误信息
 - (void)onListenWebinarAudienceCountWithNotify:(WebinarAudienceNumNotify *)notify error:(NSError *)error;
+
+#pragma mark 三方RTC网络研讨会视频解码回调
+/// 三方RTC网络研讨会视频解码回调
+/// @param streamId 视频链路ID
+- (void)onListenWebinarVideoDecodeDataWithStreamId:(int)streamId;
 
 @end
 NS_ASSUME_NONNULL_END
