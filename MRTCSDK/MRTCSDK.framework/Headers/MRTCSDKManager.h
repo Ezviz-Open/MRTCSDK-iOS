@@ -136,13 +136,13 @@ typedef void (^MRTCGetThirdRTCInfoBlock)( NSError * _Nullable error);
 
 #pragma mark 暂停/恢复本地视频流的发送
 /// @param mute YES-表示暂停视频流的发送。 NO-表示恢复视频流的发送
-- (void)muteLocalCamera:(BOOL)mute;
+//- (void)muteLocalCamera:(BOOL)mute;
 
 #pragma mark 设置自己是否接收对方音频 自研ERTC调用
 /// 设置自己是否接收对方音频
 /// @param otherClientId 目标UID(传0代表所有与会人员)
 /// @param enabled  Yes-接收  No-不接收
-- (void)enableRecvAudioWithClientId:(int)otherClientId enabled:(BOOL)enabled;
+//- (void)enableRecvAudioWithClientId:(int)otherClientId enabled:(BOOL)enabled;
 
 #pragma mark 设置自己是否接收对方视频 订阅大小码流
 /// 设置自己是否接收对方视频
@@ -162,7 +162,7 @@ typedef void (^MRTCGetThirdRTCInfoBlock)( NSError * _Nullable error);
 #pragma mark 停止发送媒体流(音频和视频) 自研ERTC调用
 /// 停止发送媒体流(音频和视频)
 /// @param pause 1-停止发送，0-恢复发送
-- (NSInteger)stopSendAudioAndVideo:(int)pause;
+//- (NSInteger)stopSendAudioAndVideo:(int)pause;
 
 #pragma mark 设置声音播放开关 应用上层调用
 /// 设置声音播放开关
@@ -249,10 +249,6 @@ typedef void (^MRTCGetThirdRTCInfoBlock)( NSError * _Nullable error);
          withRegionID:(NSInteger)regionID
                 scale:(CGFloat)scale
                center:(CGPoint)center;
-
-///获取播放视频时对应的图片
-/// @param userId 远端用户ID
-- (NSData *)getJPEGOfUserId:(NSString *)userId;
 
 #pragma mark - -------- 视频会议互动消息服务相关接口 ---------
 #pragma mark 发送退出房间消息
