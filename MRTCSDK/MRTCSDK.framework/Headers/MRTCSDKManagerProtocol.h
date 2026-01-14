@@ -309,7 +309,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark 三方RTC网络研讨会视频解码回调
 /// 三方RTC网络研讨会视频解码回调
 /// @param streamId 视频链路ID
-- (void)onListenWebinarVideoDecodeDataWithStreamId:(int)streamId;
+- (void)onListenWebinarVideoDecodeDataWithStreamId:(int)streamId pixelBuffer:(CVPixelBufferRef)pixelBuffer;
 
 @end
 NS_ASSUME_NONNULL_END
