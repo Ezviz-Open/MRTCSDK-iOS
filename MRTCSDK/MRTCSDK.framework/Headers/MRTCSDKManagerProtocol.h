@@ -121,6 +121,23 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param succeed 连接是否成功，YES-成功 NO-失败
 - (void)roomStreamMediaDidConnectFinish:(BOOL)succeed;
 
+#pragma mark 音频采集原数据回调
+/// 音频采集原数据回调
+/// @param samplerate 采样率
+/// @param channel 声道数
+/// @param stamp 时间戳
+/// @param dataSize 数据大小
+/// @param pcmData 音频元数据
+- (void)onRoomAudioCapture:(int)samplerate channel:(int)channel stamp:(unsigned int)stamp dataSize:(int)dataSize pcmData:(void *)pcmData;
+
+#pragma mark 音频采集重采样数据回调
+/// 音频采集重采样数据回调
+/// @param samplerate 采样率
+/// @param channel 声道数
+/// @param stamp 时间戳
+/// @param resampledData 音频重采样数据
+- (void)onRoomAudioResampled:(int)samplerate channel:(int)channel stamp:(unsigned int)stamp resampledData:(NSData *)resampledData;
+
 #pragma mark 录屏服务状态码回调
 /// 录屏服务状态码回调
 /// @param status 状态码(0-停止，1-开始，-1-连接失败)
@@ -311,5 +328,18 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param streamId 视频链路ID
 - (void)onListenWebinarVideoDecodeDataWithStreamId:(int)streamId pixelBuffer:(CVPixelBufferRef)pixelBuffer;
 
+
+#pragma mark 涉诈账号封禁通知
+/// 涉诈账号封禁通知
+/// @param notify 通知信息
+/// @param error 错误信息
+- (void)onListenRoomViolationBanWithNotify:(CmdRoomDetectionBanNotify *)notify error:(NSError *)error;
+
+
+#pragma mark 录制视角跟随用户通知
+/// 录制视角跟随用户通知
+/// @param notify 通知信息
+/// @param error 错误信息
+- (void)onListenCloudRecordFollowWithNotify:(RoomMcuRecordFollowNotify *)notify error:(NSError *)error;
 @end
 NS_ASSUME_NONNULL_END
