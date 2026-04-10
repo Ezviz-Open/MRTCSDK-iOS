@@ -10,7 +10,37 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define MRTC_SDK_VERSION @"V2.1.0"
+/// 编译时间戳（英文原始格式），运行时转中文
+#define _MRTC_BUILD_TIMESTAMP (@__DATE__ @" " @__TIME__)
+
+/// SDK 版本号，包含中文编译时间（精确到小时）
+#define MRTC_SDK_VERSION _MRTCSDKVersionString()
+
+static inline NSString *_MRTCSDKVersionString(void) {
+    static NSString *version = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        // 解析 __DATE__ __TIME__ 格式: "Apr  8 2026 14:30:00"
+        NSDateFormatter *parser = [[NSDateFormatter alloc] init];
+        parser.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+        parser.dateFormat = @"MMM  d yyyy HH:mm:ss";
+        NSDate *date = [parser dateFromString:_MRTC_BUILD_TIMESTAMP];
+        if (!date) {
+            // 日期 >= 10 时没有多余空格: "Apr 18 2026 14:30:00"
+            parser.dateFormat = @"MMM d yyyy HH:mm:ss";
+            date = [parser dateFromString:_MRTC_BUILD_TIMESTAMP];
+        }
+        if (date) {
+            NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
+            fmt.dateFormat = @"yyyyMMddHH";
+            fmt.timeZone = [NSTimeZone timeZoneWithName:@"Asia/Shanghai"];
+            version = [NSString stringWithFormat:@"V2.1.0_%@", [fmt stringFromDate:date]];
+        } else {
+            version = @"V2.1.0_" @__DATE__;
+        }
+    });
+    return version;
+}
 #define MRTC_ClientType_iOS (203)
 
 #pragma mark - SDK使用场景

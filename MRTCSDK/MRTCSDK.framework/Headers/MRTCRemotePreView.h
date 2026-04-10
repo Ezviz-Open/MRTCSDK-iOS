@@ -19,7 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// 初始化会议SDK(YES-连接成功，NO-连接失败)
 /// @param frame 视图大小
 /// @param regionID 窗口ID 0:小窗口 1:大窗口
--(instancetype)initWithFrame:(CGRect)frame regionID:(int)regionID;
+/// @param useExternalVideoData 使用外部流数据
+-(instancetype)initWithFrame:(CGRect)frame regionID:(int)regionID useExternalVideoData:(BOOL)useExternalVideoData;
 
 #pragma mark 获取播放视图
 - (UIView *)getLocalPlayerView;

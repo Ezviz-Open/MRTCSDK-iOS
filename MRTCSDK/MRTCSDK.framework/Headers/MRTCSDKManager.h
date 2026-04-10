@@ -150,7 +150,10 @@ typedef void (^MRTCGetThirdRTCInfoBlock)( NSError * _Nullable error);
 /// @param besidesId  除此SDKNO以外的用户(NoPickAudio模式使用)
 /// @param mark  码流类型 1:小码流 2 大码流 4：共享流
 /// @param enabled  Yes-接收  No-不接收
-- (void)enableRecvVideoWithClientId:(int)otherClientId besidesId:(nullable NSString *)besidesId mark:(int)mark enabled:(BOOL)enabled;
+/// @param isSync 是否采用同步切换轨道
+/// 同步切换轨道(如该轨道没有流会一直等待即：无论有无数据流都将切换成功)
+/// 异步切换轨道(如该轨道没有流会默认切换失败，服务自动丢弃该消息)
+- (void)enableRecvVideoWithClientId:(int)otherClientId besidesId:(nullable NSString *)besidesId mark:(int)mark enabled:(BOOL)enabled isSync:(BOOL)isSync;
 
 #pragma mark 设置音频优先 VCSSDK调用
 /// 设置音频优先
@@ -222,6 +225,10 @@ typedef void (^MRTCGetThirdRTCInfoBlock)( NSError * _Nullable error);
 #pragma mark 获取当前摄像头
 /// 获取当前摄像头 0-代表前置 1-代表后置
 - (int)getCurrenCamera;
+
+
+#pragma mark//是否打开镜像
+- (void)openMirror:(BOOL)open;
 
 #pragma mark 获取之前的缩放的倍数
 /// @param userId 如果是屏幕共，传入userId为0

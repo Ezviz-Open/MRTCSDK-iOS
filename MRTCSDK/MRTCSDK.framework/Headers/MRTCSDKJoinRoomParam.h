@@ -26,6 +26,15 @@ NS_ASSUME_NONNULL_BEGIN
 //是否是研讨会观众
 @property (nonatomic, assign) BOOL isSeminarAudience;
 
+//会议纪要加入房间的鉴权 token
+@property (nonatomic, copy) NSString *ertcToken;
+
+//会议纪要房间内请求地址
+@property(nonatomic, strong) NSString *apiUrl;
+
+//会议纪要appID外部传入
+@property(nonatomic, strong) NSString *appID;
+
 @end
 
 NS_ASSUME_NONNULL_END

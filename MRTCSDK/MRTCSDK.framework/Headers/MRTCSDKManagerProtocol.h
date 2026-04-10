@@ -26,6 +26,21 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param pixelbuffer 视频采集数据
 - (void)captureCameraDataWithCVPixleBuffer:(CVPixelBufferRef)pixelbuffer;
 
+
+#pragma mark 摄像头采集YUV视频数据回调
+/// 会议室参会人流媒体数据回调(可根据不同linkId显示/处理窗口)
+/// @param linkId 视频链路ID
+/// @param stamp 时间戳
+/// @param track 视频轨道
+/// @param type 视频存储格式(0 - I420 , 1 - NV12, 2 - NV21)
+/// @param lable 视频角度
+/// @param width 宽/高
+/// @param height 宽/高
+/// @param yData 流媒体像素数据
+/// @param uData 流媒体像素数据
+/// @param vData 流媒体像素数据
+- (void)captureCameraDataWithYUVWithLinkId:(int)linkId stamp:(int)stamp track:(int)track type:(int)type lable:(int)lable width:(int)width height:(int)height yData:(nullable void *)yData uData:(nullable void *)uData vData:(nullable void *)vData;
+
 @end
 
 #pragma mark - 视频会议相关代理

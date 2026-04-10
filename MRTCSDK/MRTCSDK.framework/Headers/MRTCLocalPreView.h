@@ -35,6 +35,20 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param size 大小
 - (void)revisePreviewSize:(CGSize)size;
 
+#pragma mark - 设置显示翻转
+/// 设置显示翻转
+/// 当开启自定义显示控制模式时有效
+/// - Parameters:
+///   - flipX: X轴翻转
+///   - flipY: Y轴翻转
+- (void)setViewflip:(BOOL)flipX flipY:(BOOL)flipY;
+
+#pragma mark - 开启支持视图缩放移动
+/// 开启支持视图缩放移动
+/// 当开启支持视图缩放移动，[使用 move:、zoom:、directZoom:、getCurrentScale 操作视图的移动和缩放]
+/// - Parameter open: 是否开启，默认 不开启
+- (void)openViewZoomAndMove:(BOOL)open;
+
 ///获取钉钉播放视图
 - (DingRtcVideoCanvas *)getCanvasWithView;
 @end
