@@ -54,6 +54,8 @@ typedef void (^MRTCGetThirdRTCInfoBlock)( NSError * _Nullable error);
 
 @property (nonatomic, assign) int64_t remoteUserJoinRoomTimer;
 
+@property (nonatomic, assign) BOOL openMirror;
+
 #pragma mark 单例模式初始化流媒体服务类
 +(instancetype)sharedManager;
 

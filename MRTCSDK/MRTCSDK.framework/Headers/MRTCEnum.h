@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 编译时间戳（英文原始格式），运行时转中文
 #define _MRTC_BUILD_TIMESTAMP (@__DATE__ @" " @__TIME__)
 
-/// SDK 版本号，包含中文编译时间（精确到小时）
+/// SDK 版本号，包含中文编译时间（精确到分钟）
 #define MRTC_SDK_VERSION _MRTCSDKVersionString()
 
 static inline NSString *_MRTCSDKVersionString(void) {
@@ -32,7 +32,7 @@ static inline NSString *_MRTCSDKVersionString(void) {
         }
         if (date) {
             NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
-            fmt.dateFormat = @"yyyyMMddHH";
+            fmt.dateFormat = @"yyyyMMddHHmm";
             fmt.timeZone = [NSTimeZone timeZoneWithName:@"Asia/Shanghai"];
             version = [NSString stringWithFormat:@"V2.1.0_%@", [fmt stringFromDate:date]];
         } else {
@@ -64,6 +64,14 @@ typedef enum {
     MRTCStreamMediaType_Big = 2, //大码流
     MRTCStreamMediaType_Sharing = 4 //共享流
 } MRTCStreamMediaType;
+
+
+typedef NS_ENUM(NSUInteger, MRTCVideoTrack) {
+    /** MRTCVideoTrackCamera - 摄像头。 */
+    MRTCVideoTrackCamera     = 0,
+    /** MRTCVideoTrackScreen - 屏幕共享。 */
+    MRTCVideoTrackScreen = 1
+};
 
 
 #pragma mark -音频路由类型

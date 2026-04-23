@@ -128,8 +128,10 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark 音频路由变更回调
 /// 音频路由变更回调
 /// @param route 音频路由
+/// @param routeName 音频路由名称
 /// @param previousRoute 变更前的音频路由
-- (void)onAudioRouteChanged:(MRTCAudioRoute)route previousRoute:(MRTCAudioRoute)previousRoute;
+/// @param previousRouteName 变更前的音频路由名称
+- (void)onAudioRouteChanged:(MRTCAudioRoute)route routeName:(NSString *)routeName previousRoute:(MRTCAudioRoute)previousRoute previousRouteName:(NSString *)previousRouteName;
 
 #pragma mark 流媒体连接结果回调
 /// 流媒体连接结果回调
@@ -157,6 +159,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// 录屏服务状态码回调
 /// @param status 状态码(0-停止，1-开始，-1-连接失败)
 - (void)pushScreenStreamProcessStatus:(int)status;
+
+#pragma mark 当前应用CPU占用率内存使用情况回调
+/// 当前应用CPU占用率内存使用情况回调
+/// @param memory 内存使用
+/// @param cpuUsage CPU占有率
+- (void)roomAppPerformanceWithMemory:(double)memory cpuUsage:(double)cpuUsage;
 
 #pragma mark 下行网络丢包档位变化回调
 /// 下行网络丢包档位变化回调
@@ -225,6 +233,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// 互动服务闪断重连成功回调
 - (BOOL)roomReconnectedSucceed;
 
+#pragma mark 互动服务收到数据回调
+/// 互动服务收到数据回调
+/// @param data 消息体，注：该数据为未解包数据需要解包获取PacketType、Command、Result以及结构数据NSData
+/// @param topic 订阅主题
+/// @param retained 保留字段
+- (void)onListenReceiveWithData:(NSData *)data topic:(nullable NSString *)topic retained:(BOOL)retained;
+
 #pragma mark 互动服务连接失败(进入房间失败)
 /// 互动服务连接失败(进入房间失败)
 /// @param command cmd指令
@@ -265,6 +280,24 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param error 错误信息
 /// @param firstNotify 是否为首次状态通知
 - (void)onListenMyAccountWithNotify:(MyAccountNotify *)notify error:(nullable NSError *)error firstNotify:(BOOL)firstNotify;
+
+#pragma mark 码流变化通知
+/// 码流变化通知
+/// @param notify 通知信息
+/// @param error 错误信息
+- (void)onListenStreamChangedWithNotify:(StreamNotify *)notify error:(NSError *)error;
+
+#pragma mark 透传消息通知
+/// 透传消息通知
+/// @param notify 通知信息
+/// @param error 错误信息
+- (void)onListenPassthroughWithNotify:(PassthroughNotify *)notify error:(NSError *)error;
+
+#pragma mark 主持人操作码流通知
+/// 主持人操作码流通知
+/// @param notify 通知信息
+/// @param error 错误信息
+- (void)onListenHostCtrlStreamWithNotify:(HostCtrlStreamNotify *)notify error:(NSError *)error;
 
 #pragma mark 成员状态通知
 /// 成员状态通知
@@ -320,6 +353,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param error 错误信息
 - (void)onListenRoomUnionHostWithNotify:(RoomUnionHostNotify *)notify error:(NSError *)error;
 
+#pragma mark 接收聊天通知
+/// 接收聊天通知
+/// @param notify 通知信息
+/// @param error 错误信息
+- (void)onListenRoomChatEventWithNotify:(XChatEvent *)notify error:(NSError *)error;
+
 #pragma mark 事件命令透传通知
 /// 事件命令透传通知
 /// @param command 消息指令
@@ -341,14 +380,31 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark 三方RTC网络研讨会视频解码回调
 /// 三方RTC网络研讨会视频解码回调
 /// @param streamId 视频链路ID
-- (void)onListenWebinarVideoDecodeDataWithStreamId:(int)streamId pixelBuffer:(CVPixelBufferRef)pixelBuffer;
+- (void)onListenWebinarVideoDecodeDataWithStreamId:(int)streamId pixelBuffer:(CVPixelBufferRef)pixelBuffer videoTrack:(MRTCVideoTrack)videoTrack;
 
+#pragma mark 会议违规提醒通知
+/// 会议违规提醒通知
+/// @param notify 通知信息
+/// @param error 错误信息
+- (void)onListenRoomViolationWithNotify:(CmdRoomDetectionResultNotify *)notify error:(NSError *)error;
 
 #pragma mark 涉诈账号封禁通知
 /// 涉诈账号封禁通知
 /// @param notify 通知信息
 /// @param error 错误信息
 - (void)onListenRoomViolationBanWithNotify:(CmdRoomDetectionBanNotify *)notify error:(NSError *)error;
+
+#pragma mark 语音转写失败通知
+/// 语音转写失败通知
+/// @param notify 通知信息
+/// @param error 错误信息
+- (void)onListenRoomSpeechErrorWithNotify:(RoomSpeechErrorNotify *)notify error:(NSError *)error;
+
+#pragma mark 需要身份验证通知
+/// 需要身份验证通知
+/// @param notify 通知信息
+/// @param error 错误信息
+- (void)onListenIdentityVerifyRequiredWithNotify:(IdentityVerifyRequiredNotify *)notify error:(NSError *)error;
 
 
 #pragma mark 录制视角跟随用户通知
