@@ -93,6 +93,17 @@ typedef enum : NSInteger {
     MRTCAudioRouteBluetooth
 } MRTCAudioRoute;
 
+typedef NS_ENUM(NSInteger, MRTCAudioSessionOperationRestriction) {
+    /** MRTCAudioSessionOperationRestrictionNone - 没有限制，SDK完全控制AVAudioSession。 */
+    MRTCAudioSessionOperationRestrictionNone              = 0,
+    /** MRTCAudioSessionOperationRestrictionSetCategory - SDK不能修改AVAudioSession的Category。 */
+    MRTCAudioSessionOperationRestrictionSetCategory       = 1 << 0,
+    /** MRTCAudioSessionOperationRestrictionConfigureSession - SDK不能修改AVAudioSession的配置，包括Category，Mode，CategoryOptions。 */
+    MRTCAudioSessionOperationRestrictionConfigureSession  = 1 << 1,
+    /** MRTCAudioSessionOperationRestrictionDeactivateSession - SDK不能关闭AVAudioSession的活动状态，离开频道时，AVAudioSession依然处于活动状态。 */
+    MRTCAudioSessionOperationRestrictionDeactivateSession = 1 << 2,
+};
+
 #pragma mark -SDK日志等级
 typedef NS_ENUM(NSUInteger, MRTCLogLevel) {
     MRTCLogLevelOff = 0,

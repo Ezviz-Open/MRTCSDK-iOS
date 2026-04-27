@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MRTCEnum.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -34,6 +35,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 //会议纪要appID外部传入
 @property(nonatomic, strong) NSString *appID;
+
+//音频路由管理类型
+@property (nonatomic, assign) MRTCAudioSessionOperationRestriction operationRestriction;
 
 @end
 
