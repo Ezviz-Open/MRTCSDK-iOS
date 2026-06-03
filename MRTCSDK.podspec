@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "MRTCSDK"
-  spec.version      = "2.0.13"
+  spec.version      = "2.0.14"
   spec.summary      = "A short description of MRTCSDK."
   spec.description  = <<-DESC
   TODO: Add long description of the pod here.
