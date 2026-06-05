@@ -41,6 +41,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 美颜模块是否启用
 @property (nonatomic, assign, readonly) BOOL beautyEnabled;
 
+#pragma mark 是否在美颜页面
+@property (nonatomic, assign) BOOL isBeautyView;
+
 #pragma mark 单例模式初始化美颜服务
 +(instancetype)sharedManager;
 
