@@ -230,6 +230,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - -------- 互动服务服务相关代理 --------
 #pragma mark 互动服务闪断重连成功回调
+/// 被动离会通知，触发原因有：用户被踢、频道被主动关闭、会话失效、断网重连失败等
+- (BOOL)onByeNeedRelogin;
+
+#pragma mark 互动服务闪断重连成功回调
 /// 互动服务闪断重连成功回调
 - (BOOL)roomReconnectedSucceed;
 
