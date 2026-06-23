@@ -19,7 +19,9 @@ Pod::Spec.new do |spec|
   spec.version      = "2.1.0"
   spec.summary      = "MRTCSDK is a multi-platform real-time communication SDK for iOS."
   spec.description  = <<-DESC
-  TODO: Add long description of the pod here.
+  MRTCSDK provides multi-platform real-time communication capabilities for iOS,
+  supporting audio/video calls, screen sharing, and whiteboard collaboration.
+  It integrates with ERTC, VCS, and optionally DingRTC backends.
                    DESC
 
   spec.homepage     = "https://github.com/Ezviz-Open/MRTCSDK-iOS.git"
@@ -35,25 +37,7 @@ Pod::Spec.new do |spec|
 
   spec.source       = { :git => "https://github.com/Ezviz-Open/MRTCSDK-iOS.git", :tag => "#{spec.version}" }
 
-  spec.source_files = "MRTCSDK/MRTCSDK.framework/Headers/*.{h,m}"
-  
-  spec.framework  = "Foundation", "UIKit"
-  
-  spec.vendored_frameworks = 'MRTCSDK/MRTCSDK.framework'
-  
-  # 依赖开源库
-  spec.dependency 'ERTCSDK'
-  spec.dependency 'VCSSDK'
-  spec.dependency 'MMKV'
-  spec.dependency 'Protobuf'
-  spec.dependency 'SSZipArchive', '>= 2.4.3'
-  spec.dependency 'AFNetworking', '>= 4.0.0'
-  
   spec.requires_arc = true
-  
-  spec.user_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) VCS_USE_PROTOBUF_BEAUTY_IMPORTS=1' }
-  
-  spec.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) VCS_USE_PROTOBUF_BEAUTY_IMPORTS=1' }
 
   # ―――  Subspecs  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   
