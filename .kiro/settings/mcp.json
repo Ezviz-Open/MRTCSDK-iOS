@@ -1,0 +1,42 @@
+{
+  "mcpServers": {
+    "ai-metrics": {
+      "command": "/usr/local/bin/node",
+      "args": [
+        "/Users/wangjinlong23/.kiro/extensions/ezviz.ezviz-ai-devkit-0.0.52/mcp-services/ai-metrics/mcp-server.bundle.js"
+      ],
+      "env": {
+        "ENABLE_MONITORING": "true",
+        "ENABLE_REALTIME_PUSH": "false",
+        "SKIP_AUTO_CONFIG": "true",
+        "WORKSPACE_ROOT": "/Users/wangjinlong23/Desktop/MRTC_JL/MRTCSDK-iOS",
+        "TOOL_NAME": "kiro",
+        "PATH": "/Users/wangjinlong23/.rvm/gems/ruby-2.7.2/bin:/Users/wangjinlong23/.rvm/gems/ruby-2.7.2@global/bin:/Users/wangjinlong23/.rvm/rubies/ruby-2.7.2/bin:/Users/wangjinlong23/Documents/flutter/bin:/Users/wangjinlong23/.npm-global/bin:/Library/Frameworks/Python.framework/Versions/2.7/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Users/wangjinlong23/.rvm/bin",
+        "HOME": "/Users/wangjinlong23",
+        "SHELL": "/bin/zsh",
+        "USER": "wangjinlong23",
+        "LANG": "C.UTF-8"
+      },
+      "disabled": false,
+      "autoApprove": [
+        "beforeEditFile",
+        "afterEditFile",
+        "getPendingPairs",
+        "recordSession",
+        "getRules",
+        "queryDocs",
+        "getContext",
+        "getMetricsSummary",
+        "getServerStatus",
+        "collectSVNCommit",
+        "collectTabCompletion",
+        "manualSync",
+        "triggerSVNCheck",
+        "triggerAIDrivenSVNCheck",
+        "updateWorkspace",
+        "uploadDataFiles",
+        "updateSVNCredentials"
+      ]
+    }
+  }
+}

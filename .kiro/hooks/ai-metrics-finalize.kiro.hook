@@ -1,0 +1,15 @@
+{
+  "enabled": true,
+  "name": "AI Metrics Finalize",
+  "description": "任务结束后补调未完成的 afterEditFile 配对",
+  "version": "2",
+  "when": {
+    "type": "agentStop"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "调用 mcp_ai_metrics_getPendingPairs() 检查 pending 记录，对所有 pending 的 trackId 调用 afterEditFile(trackId, filePath, source='ai_chat') 完成配对。无 pending 则跳过。"
+  },
+  "workspaceFolderName": "MRTCSDK-iOS",
+  "shortName": "ai-metrics-finalize"
+}
