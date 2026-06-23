@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "MRTCSDK"
-  spec.version      = "2.0.20"
+  spec.version      = "2.0.21"
   spec.summary      = "A short description of MRTCSDK."
   spec.description  = <<-DESC
   TODO: Add long description of the pod here.
@@ -57,10 +57,10 @@ Pod::Spec.new do |spec|
 
   # ―――  Subspecs  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   
-  # Core subspec: 不包含 DingRTC 依赖，MRTC_DINGRTC_ENABLED=0
+ # Core subspec: 不包含 DingRTC 依赖（使用 MRTC_DINGRTC_ENABLED=0 编译的 framework）
   spec.subspec 'Core' do |core|
-    core.source_files = "MRTCSDK/MRTCSDK.framework/Headers/*.{h,m}"
-    core.vendored_frameworks = 'MRTCSDK/MRTCSDK.framework'
+    core.vendored_frameworks = 'MRTCSDK_Core.framework'
+    core.source_files = 'MRTCSDK_Core.framework/Headers/*.h'
     core.framework = "Foundation", "UIKit"
     core.dependency 'ERTCSDK'
     core.dependency 'VCSSDK'
@@ -76,9 +76,17 @@ Pod::Spec.new do |spec|
     }
   end
 
-  # DingRTC subspec: 包含 DingRTC 依赖，MRTC_DINGRTC_ENABLED=1（默认启用）
+  # DingRTC subspec: 包含 DingRTC 依赖（使用 MRTC_DINGRTC_ENABLED=1 编译的 framework，默认启用）
   spec.subspec 'DingRTC' do |ding|
-    ding.dependency 'MRTCSDK/Core'
+    ding.vendored_frameworks = 'MRTCSDK.framework'
+    ding.source_files = 'MRTCSDK.framework/Headers/*.h'
+    ding.framework = "Foundation", "UIKit"
+    ding.dependency 'ERTCSDK'
+    ding.dependency 'VCSSDK'
+    ding.dependency 'MMKV'
+    ding.dependency 'Protobuf'
+    ding.dependency 'SSZipArchive', '>= 2.4.3'
+    ding.dependency 'AFNetworking', '>= 4.0.0'
     ding.dependency 'DingRTC_iOS/RtcBasic'
     ding.dependency 'DingRTC_iOS/AudioEnhance'
     ding.pod_target_xcconfig = {
