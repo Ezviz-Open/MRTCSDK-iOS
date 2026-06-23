@@ -6,10 +6,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MRTCSDK/MRTCSDKDefines.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
+#if MRTC_DINGRTC_ENABLED
 @class DingRtcVideoCanvas;
+#endif
 @interface MRTCLocalPreView : UIView
 
 ///窗口标识 0:小窗口 1:大窗口
@@ -49,8 +52,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// - Parameter open: 是否开启，默认 不开启
 - (void)openViewZoomAndMove:(BOOL)open;
 
+#if MRTC_DINGRTC_ENABLED
 ///获取钉钉播放视图
 - (DingRtcVideoCanvas *)getCanvasWithView;
+#endif
 @end
 
 NS_ASSUME_NONNULL_END

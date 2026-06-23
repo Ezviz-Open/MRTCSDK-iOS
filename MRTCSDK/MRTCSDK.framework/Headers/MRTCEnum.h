@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define MRTC_SDK_COCOAPODS @"2.0.16"//cocoapods版本
+#define MRTC_SDK_COCOAPODS @"2.0.17"//cocoapods版本
 /// 编译时间戳（英文原始格式），运行时转中文
 #define _MRTC_BUILD_TIMESTAMP (@__DATE__ @" " @__TIME__)
 

@@ -12,13 +12,16 @@
 #import <MRTCSDK/MRTCLocalPreView.h>
 #import <MRTCSDK/MRTCNetworkConfig.h>
 #import <MRTCSDK/MRTCMeetingDesktopModel.h>
+#import <MRTCSDK/MRTCSDKDefines.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^MRTCGetThirdRTCInfoBlock)( NSError * _Nullable error);
 
 @class ERTCEngine;
+#if MRTC_DINGRTC_ENABLED
 @class DingRtcEngine;
+#endif
 @interface MRTCSDKManager : NSObject
 #pragma mark 是否是三方RTC
 @property (nonatomic, assign) BOOL isThirdRTC;
@@ -37,8 +40,10 @@ typedef void (^MRTCGetThirdRTCInfoBlock)( NSError * _Nullable error);
 #pragma mark 自研RTC实例
 @property (nonatomic, strong, nullable) ERTCEngine *engine;
 
+#if MRTC_DINGRTC_ENABLED
 #pragma mark DingDingRTC实例
 @property (nonatomic, strong, nullable) DingRtcEngine *dingdingEngine;
+#endif
 
 #pragma mark 本地用户小窗口视图
 @property (nonatomic, strong)MRTCLocalPreView *localSmallView;

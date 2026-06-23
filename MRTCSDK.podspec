@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "MRTCSDK"
-  spec.version      = "2.0.17"
+  spec.version      = "2.0.20"
   spec.summary      = "A short description of MRTCSDK."
   spec.description  = <<-DESC
   TODO: Add long description of the pod here.
@@ -46,7 +46,6 @@ Pod::Spec.new do |spec|
   spec.dependency 'VCSSDK'
   spec.dependency 'MMKV'
   spec.dependency 'Protobuf'
-  spec.dependency 'DingRTC_iOS'
   spec.dependency 'SSZipArchive', '>= 2.4.3'
   spec.dependency 'AFNetworking', '>= 4.0.0'
   
@@ -55,4 +54,41 @@ Pod::Spec.new do |spec|
   spec.user_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) VCS_USE_PROTOBUF_BEAUTY_IMPORTS=1' }
   
   spec.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) VCS_USE_PROTOBUF_BEAUTY_IMPORTS=1' }
+
+  # ―――  Subspecs  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+  
+  # Core subspec: 不包含 DingRTC 依赖，MRTC_DINGRTC_ENABLED=0
+  spec.subspec 'Core' do |core|
+    core.source_files = "MRTCSDK/MRTCSDK.framework/Headers/*.{h,m}"
+    core.vendored_frameworks = 'MRTCSDK/MRTCSDK.framework'
+    core.framework = "Foundation", "UIKit"
+    core.dependency 'ERTCSDK'
+    core.dependency 'VCSSDK'
+    core.dependency 'MMKV'
+    core.dependency 'Protobuf'
+    core.dependency 'SSZipArchive', '>= 2.4.3'
+    core.dependency 'AFNetworking', '>= 4.0.0'
+    core.pod_target_xcconfig = {
+      'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) VCS_USE_PROTOBUF_BEAUTY_IMPORTS=1 MRTC_DINGRTC_ENABLED=0'
+    }
+    core.user_target_xcconfig = {
+      'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) VCS_USE_PROTOBUF_BEAUTY_IMPORTS=1 MRTC_DINGRTC_ENABLED=0'
+    }
+  end
+
+  # DingRTC subspec: 包含 DingRTC 依赖，MRTC_DINGRTC_ENABLED=1（默认启用）
+  spec.subspec 'DingRTC' do |ding|
+    ding.dependency 'MRTCSDK/Core'
+    ding.dependency 'DingRTC_iOS/RtcBasic'
+    ding.dependency 'DingRTC_iOS/AudioEnhance'
+    ding.pod_target_xcconfig = {
+      'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) VCS_USE_PROTOBUF_BEAUTY_IMPORTS=1 MRTC_DINGRTC_ENABLED=1'
+    }
+    ding.user_target_xcconfig = {
+      'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) VCS_USE_PROTOBUF_BEAUTY_IMPORTS=1 MRTC_DINGRTC_ENABLED=1'
+    }
+  end
+
+  # 默认引入 DingRTC
+  spec.default_subspecs = 'DingRTC'
 end
