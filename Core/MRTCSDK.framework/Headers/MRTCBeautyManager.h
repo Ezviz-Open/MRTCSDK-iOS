@@ -89,6 +89,18 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - 切换采集摄像头
 /// 切换采集摄像头
 - (void)changeCameraDevice;
+
+#pragma mark - 开启/关闭虚拟背景
+/// 开启/关闭虚拟背景
+/// @param enable YES-开启虚拟背景 NO-关闭虚拟背景
+/// @param imagePath 虚拟背景图片本地路径（背景虚化时传 nil，关闭时可传 nil）
+/// @return 0-成功，非0-失败
+- (int)enableVirtualBackground:(BOOL)enable imagePath:(nullable NSString *)imagePath;
+
+#pragma mark - 开启/关闭钉钉预览画面镜像
+/// 开启/关闭钉钉预览画面镜像（仅 DingRTC 生效）
+/// @param enable YES-开启镜像 NO-关闭镜像
+- (void)enableDingPreviewMirror:(BOOL)enable;
 @end
 
 NS_ASSUME_NONNULL_END

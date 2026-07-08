@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "MRTCSDK"
-  spec.version      = "2.1.0"
+  spec.version      = "2.1.2"
   spec.summary      = "MRTCSDK is a multi-platform real-time communication SDK for iOS."
   spec.description  = <<-DESC
   MRTCSDK provides multi-platform real-time communication capabilities for iOS,
@@ -73,6 +73,7 @@ Pod::Spec.new do |spec|
     ding.dependency 'AFNetworking', '>= 4.0.0'
     ding.dependency 'DingRTC_iOS/RtcBasic'
     ding.dependency 'DingRTC_iOS/AudioEnhance'
+    ding.dependency 'DingRTC_iOS/VirtualBackground'
     ding.pod_target_xcconfig = {
       'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) VCS_USE_PROTOBUF_BEAUTY_IMPORTS=1 MRTC_DINGRTC_ENABLED=1'
     }
